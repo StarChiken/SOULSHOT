@@ -46,6 +46,7 @@ public class Debugger : MonoBehaviour
 
     private GameObject trailRendererInstance;
 
+    private Camera mainCamera = Camera.main; // TODO: Camera.main is a bad practice, use reference
     private void Start()
     {
         ChangeTimeScale();
@@ -72,13 +73,13 @@ public class Debugger : MonoBehaviour
         {
             if (Input.GetKeyDown(pistolSpawnKey))
             {
-                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 mousePos.z = 0;
                 Instantiate(pistolPickUpPrefab, mousePos, Quaternion.identity);
             }
             else if (Input.GetKeyDown(randomThrowableSpawnKey))
             {
-                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 mousePos.z = 0;
                 Instantiate(throwables[Random.Range(0, throwables.Length)], mousePos, Quaternion.identity);
             }
@@ -91,7 +92,7 @@ public class Debugger : MonoBehaviour
         {
             if (Input.GetKeyDown(targetSpawnKey))
             {
-                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector3 mousePos = mainCamera.ScreenToWorldPoint(Input.mousePosition);
                 mousePos.z = 0;
                 Instantiate(targetEnemyPrefab, mousePos, Quaternion.identity);
             }

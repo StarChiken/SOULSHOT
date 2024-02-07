@@ -10,6 +10,8 @@ public class PlayerAirDash : MonoBehaviour
     public ParticleSystem dashParticles;
 
     private bool canDash = true;
+    
+    // TODO: Mistake? Use Player isGrounded
     private bool isGrounded = true;
 
     private Vector2 currentMoveVector;
@@ -22,7 +24,8 @@ public class PlayerAirDash : MonoBehaviour
 
         Player.onGroundedChange += OnGroundedChange;
     }
-
+    
+    // TODO: Use Inheritance? also on PlayerDash
     private void OnDash()
     {
         if (canDash && !isGrounded && currentMoveVector.magnitude > 0 && Player.Instance.GetPlayerForm() == Form.Demon)

@@ -11,10 +11,13 @@ public class CameraShake : MonoBehaviour
     private float shakeTimer = 0;
 
     private CinemachineVirtualCamera virtualCam;
+    private CinemachineBasicMultiChannelPerlin cinemachineBasicMultiChannelPerlin;
 
     private void Start()
     {
         virtualCam = GetComponent<CinemachineVirtualCamera>();
+        cinemachineBasicMultiChannelPerlin = virtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
+
     }
 
     private void FixedUpdate()
@@ -26,7 +29,9 @@ public class CameraShake : MonoBehaviour
             if (shakeTimer >= shakeTime)
             {
                 isShaking = false;
-                virtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
+                
+                cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 0;
+              //  virtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = 0;
             }
         }
     }
@@ -36,6 +41,8 @@ public class CameraShake : MonoBehaviour
         shakeTime = _shakeTime;
         shakeTimer = 0;
         isShaking = true;
-        virtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = _shakeAmplitude;
+        
+        cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = _shakeAmplitude;
+      //  virtualCam.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>().m_AmplitudeGain = _shakeAmplitude;
     }
 }

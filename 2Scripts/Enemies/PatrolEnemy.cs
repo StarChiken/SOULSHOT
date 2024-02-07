@@ -96,6 +96,7 @@ public class PatrolEnemy : MonoBehaviour
         playerTransform = _playerObject.transform;
     }
 
+    // TODO: Inaccessible, rigid. Make its own script
     private enum EnemyState
     {
         Patrolling,
@@ -106,8 +107,16 @@ public class PatrolEnemy : MonoBehaviour
 
     private void SetAimObjectsLocalScale(int relativeInputOffsetSign)
     {
-        aimCenter.localScale = new Vector2(relativeInputOffsetSign * Mathf.Abs(aimCenter.localScale.x), aimCenter.localScale.y);
-        fireParticleEmitter.localScale = new Vector2(relativeInputOffsetSign * Mathf.Abs(fireParticleEmitter.localScale.x), fireParticleEmitter.localScale.y);
+        Vector3 aimCenterLocalScale = aimCenter.localScale;
+        aimCenterLocalScale = new Vector2(relativeInputOffsetSign * Mathf.Abs(aimCenterLocalScale.x), aimCenterLocalScale.y);
+        
+        aimCenter.localScale = aimCenterLocalScale;
+        
+        Vector3 particleEmmiterLocalScale = fireParticleEmitter.localScale;
+        
+        particleEmmiterLocalScale = new Vector2(relativeInputOffsetSign * Mathf.Abs(particleEmmiterLocalScale.x), particleEmmiterLocalScale.y);
+        
+        fireParticleEmitter.localScale = particleEmmiterLocalScale;
     }
 
     private void UpdateEnemyState()

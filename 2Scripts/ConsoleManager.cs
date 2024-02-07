@@ -69,8 +69,7 @@ public class ConsoleManager : MonoBehaviour
 
     private float HandleSetTimeScaleCommand(string commandValue)
     {
-        float newTimeScale;
-        bool wasParsed = float.TryParse(commandValue, out newTimeScale);
+        bool wasParsed = float.TryParse(commandValue, out var newTimeScale);
 
         if (wasParsed)
         {
@@ -102,8 +101,7 @@ public class ConsoleManager : MonoBehaviour
 
     private void HandleSetCheckpointCommand(string commandValue)
     {
-        int checkpointIndex = 0;
-        bool wasParsed = int.TryParse(commandValue, out checkpointIndex);
+        bool wasParsed = int.TryParse(commandValue, out int checkpointIndex);
 
         if (wasParsed)
         {

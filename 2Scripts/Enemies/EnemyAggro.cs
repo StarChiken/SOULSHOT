@@ -65,45 +65,52 @@ public class EnemyAggro : MonoBehaviour
             }
         }
     }
-
+    // TODO: Possible floating point error
     private bool CheckPlayerDirection()
     {
-        if (Mathf.Sign(playerFireTracker.transform.position.x - transform.position.x) == lookDirection)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return Mathf.Sign(playerFireTracker.transform.position.x - transform.position.x) == lookDirection;
+
+        // if (Mathf.Sign(playerFireTracker.transform.position.x - transform.position.x) == lookDirection)
+        // {
+        //     return true;
+        // } 
+        //
+        // return false;
     }
 
     private bool CheckPlayerDistance()
     {
-        if (Vector2.Distance(playerFireTracker.transform.position, transform.position) <= aggroDistance)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return Vector2.Distance(playerFireTracker.transform.position, transform.position) <= aggroDistance;
+
+        // if (Vector2.Distance(playerFireTracker.transform.position, transform.position) <= aggroDistance)
+        // {
+        //     return true;
+        // }
+        // else
+        // {
+        //     return false;
+        // }
     }
 
     private bool CheckPlayerLOS()
     {
-        Vector2 rotation = new Vector2(playerFireTracker.transform.position.x - transform.position.x, playerFireTracker.transform.position.y - transform.position.y);
+        Vector3 fireTrackerTransformPosition = playerFireTracker.transform.position;
+        Vector3 transformPosition = transform.position;
+        Vector2 rotation = new Vector2(fireTrackerTransformPosition.x - transformPosition.x, fireTrackerTransformPosition.y - transformPosition.y);
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, rotation.normalized, Mathf.Infinity, rayCastMask);
+        RaycastHit2D hit = Physics2D.Raycast(transformPosition, rotation.normalized, Mathf.Infinity, rayCastMask);
 
-        if (hit.transform != null && hit.transform.GetComponent<PlayerHorizontalMovement>() != null)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        // TODO: GetComponent in Raycast is a bad practice, very slow 
+        return hit.transform != null && hit.transform.GetComponent<PlayerHorizontalMovement>() != null;
+        
+        // if (hit.transform != null && hit.transform.GetComponent<PlayerHorizontalMovement>() != null)
+        // {
+        //     return true;
+        // }
+        // else
+        // {
+        //     return false;
+        // }
     }
 
     private void OnFireTrackerChange(Transform _playerFireTracker)
@@ -133,6 +140,7 @@ public class EnemyAggro : MonoBehaviour
         return lookDirection;
     }
 
+    // TODO: Unused Method???
     public void SetIsAggro(bool _isAggro)
     {
         isAggro = _isAggro;

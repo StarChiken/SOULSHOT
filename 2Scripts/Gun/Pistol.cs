@@ -33,6 +33,8 @@ public class Pistol : MonoBehaviour
         Player.onFireTriggered += OnFireTriggered;
     }
 
+    // TODO: Instantiate is a bad practice, use Factory design pattern and Pooling 
+    // Can be made private
     public void FirePistol(Vector2 rotationVector)
     {
         hasBullet = false;
@@ -45,7 +47,9 @@ public class Pistol : MonoBehaviour
         particleSys.Play();
         cameraShakeScript.ShakeCamera(fireCamShakeTime, fireCamShakeAmplitude);
     }
-
+    
+    // TODO: Instantiate is a bad practice, use Factory design pattern and Pooling 
+    // Can be made private
     public void ThrowPistol(Vector2 rotationVector)
     {
         hasPistol = false;
@@ -59,7 +63,8 @@ public class Pistol : MonoBehaviour
         Player.Instance.SetPlayerForm(Form.Demon);
         Player.Instance.SetIsHolding(false);
     }
-
+    
+    
     private void OnHoldChange(bool _isHolding)
     {
         if (_isHolding)
@@ -71,7 +76,7 @@ public class Pistol : MonoBehaviour
             RemovePistolFromHand();
         }
     }
-
+    
     private void AddPistolToHand()
     {
         hasPistol = true;

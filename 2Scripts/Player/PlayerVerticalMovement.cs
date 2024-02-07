@@ -119,6 +119,7 @@ public class PlayerVerticalMovement : MonoBehaviour
         }
     }
 
+    // TODO: Can be made private. Later use???
     public void GroundPlayer()
     {
         isJumping = false;
@@ -144,6 +145,7 @@ public class PlayerVerticalMovement : MonoBehaviour
         }
     }
 
+    // TODO: Can be made private. Later use???
     public void CutJump()
     {
         rb.velocityY *= velCutMult;

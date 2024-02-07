@@ -102,7 +102,8 @@ public class ThrowableObject : MonoBehaviour
 
     private void StickObjectInWall(Vector2 colContactPoint)
     {
-        int spriteIndex = Convert.ToInt32(spriteRenderer.sprite.name[spriteRenderer.sprite.name.Length - 1].ToString());
+       // int spriteIndex = Convert.ToInt32(spriteRenderer.sprite.name[spriteRenderer.sprite.name.Length - 1].ToString());
+        int spriteIndex = Convert.ToInt32(spriteRenderer.sprite.name[^1].ToString());
 
         GameObject instance = Instantiate(inWallPrefab, colContactPoint, Quaternion.identity);
         instance.GetComponent<PistolInWall>().SetSprite(spriteIndex, isFacingLeft);

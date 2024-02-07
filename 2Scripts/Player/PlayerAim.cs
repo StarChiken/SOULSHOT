@@ -104,6 +104,7 @@ public class PlayerAim : MonoBehaviour
         }
     }
 
+    // TODO: Unused Method??? 
     private void OnAltFire()
     {
         if (Player.Instance.GetIsHolding())
@@ -131,6 +132,7 @@ public class PlayerAim : MonoBehaviour
         }
     }
 
+    // TODO: Unused method???
     private void OnControlsChanged(PlayerInput playerInput)
     {
         currentControlScheme = playerInput.currentControlScheme;

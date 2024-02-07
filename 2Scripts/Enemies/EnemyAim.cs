@@ -47,7 +47,7 @@ public class EnemyAim : MonoBehaviour
 
             if (shotTimer >= totalShotTime)
             {
-                FireBullet();
+                FireBullet(); // TODO: Check in profilers. The Unholy Trinity, GetComponent + RayCast + Update.
             }
             else if (shotTimer < lockInRotationTime)
             {
@@ -71,19 +71,32 @@ public class EnemyAim : MonoBehaviour
     private void FireBullet()
     {
         isAiming = false;
+        
         onAiming?.Invoke(false);
         onFire?.Invoke();
-        Projectile projectileInstance = Instantiate(bulletPrefab, transform.position + new Vector3(aggroScript.GetLookDirection() * fireOffset.x, fireOffset.y, 0), transform.rotation).GetComponent<Projectile>();
+        
+        // TODO: Instantiate is a bad practice, use Factory design pattern and Pooling
+        // GetComponent in Raycast is a bad practice, always use a script name like this, else would be very slow 
+
+        Projectile projectileInstance = Instantiate(bulletPrefab, transform.position + new Vector3(aggroScript.GetLookDirection()
+            * fireOffset.x, fireOffset.y, 0), transform.rotation).GetComponent<Projectile>();
+        
         Vector2 fireDirection = Vector2.zero;
+        Vector3 transformEulerAngles = transform.eulerAngles;
+        
         if (aggroScript.GetLookDirection() == 1)
         {
-            fireDirection = new Vector2(Mathf.Cos((transform.eulerAngles.z) * Mathf.Deg2Rad), Mathf.Sin((transform.eulerAngles.z) * Mathf.Deg2Rad)).normalized;
+            
+            fireDirection = new Vector2(Mathf.Cos((transformEulerAngles.z) * Mathf.Deg2Rad), Mathf.Sin((transformEulerAngles.z) * Mathf.Deg2Rad)).normalized;
         }
         else if (aggroScript.GetLookDirection() == -1)
         {
-            fireDirection = new Vector2(Mathf.Cos((transform.eulerAngles.z + 180) * Mathf.Deg2Rad), Mathf.Sin((transform.eulerAngles.z + 180) * Mathf.Deg2Rad)).normalized;
+            
+            fireDirection = new Vector2(Mathf.Cos((transformEulerAngles.z + 180) * Mathf.Deg2Rad), Mathf.Sin((transformEulerAngles.z + 180) * Mathf.Deg2Rad)).normalized;
         }
+        
         projectileInstance.FireProjectile(fireDirection, Vector2.zero);
+        
         shotTimer = 0;
     }
 
@@ -95,10 +108,14 @@ public class EnemyAim : MonoBehaviour
             onAiming?.Invoke(true);
         }
 
-        Vector2 rotation = new Vector2(transform.position.x - playerFireTracker.transform.position.x, transform.position.y - playerFireTracker.transform.position.y);
+        Vector3 transformPosition = transform.position;
+        Vector3 fireTrackerTransformPosition = playerFireTracker.transform.position;
+        
+        Vector2 rotation = new Vector2(transformPosition.x - fireTrackerTransformPosition.x, transformPosition.y - fireTrackerTransformPosition.y);
 
         float targetZRot = (Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg);
-
+        
+        // TODO: Possible floating point error
         if (Mathf.Sign(rotation.x) == -1 && Mathf.Sign(rotation.y) == -1)
         {
             targetZRot = -targetZRot;
@@ -109,6 +126,7 @@ public class EnemyAim : MonoBehaviour
             targetZRot -= 180;
         }
 
+        // TODO: Possible floating point error
         if (Mathf.Sign(rotation.x) == -1 && Mathf.Sign(rotation.y) == -1)
         {
             targetZRot = -targetZRot;
@@ -116,6 +134,7 @@ public class EnemyAim : MonoBehaviour
 
         targetZRot = Mathf.Clamp(targetZRot, minTurretRot, maxTurretRot);
 
+        // TODO: Possible floating point error
         if (targetZRot == minTurretRot)
         {
             transform.eulerAngles = GetSmoothedRotation(minTurretRot);
@@ -137,16 +156,19 @@ public class EnemyAim : MonoBehaviour
 
     private bool CheckPlayerDistance()
     {
-        if (Vector2.Distance(playerFireTracker.transform.position, transform.position) <= aimDistance)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return Vector2.Distance(playerFireTracker.transform.position, transform.position) <= aimDistance;
+        
+        // if (Vector2.Distance(playerFireTracker.transform.position, transform.position) <= aimDistance)
+        // {
+        //     return true;
+        // }
+        // else
+        // {
+        //     return false;
+        // }
     }
 
+    // TODO: Unused Method???
     public bool GetIsAiming()
     {
         return isAiming;

@@ -27,6 +27,7 @@ public class PlayerDash : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    // TODO: Use Inheritance? also on PlayerAirDash
     private void OnDash()
     {
         if (canDash && Mathf.Abs(moveDir) > 0.05f && !Player.Instance.GetIsCrouching() && Player.Instance.GetIsGrounded())
@@ -48,11 +49,13 @@ public class PlayerDash : MonoBehaviour
         }
     }
 
+    // TODO: Use Inheritance? Also on WallJump and PlayerHorizontalMove
     private void OnHorizontal(InputValue inputValue)
     {
         moveDir = inputValue.Get<float>();
     }
 
+    // TODO: Use Inheritance? Also on WallJump. Inconsistent Naming
     private async void DashCDTimer(float dashCoolDown)
     {
         canDash = false;

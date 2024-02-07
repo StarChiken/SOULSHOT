@@ -13,6 +13,7 @@ public class PlayerPunch : MonoBehaviour
         Player.onFireTriggered += OnFireTriggered;
     }
 
+    // TODO: Can be made private. Later use???
     public void Punch()
     {
         animator.SetTrigger("punchTrigger");

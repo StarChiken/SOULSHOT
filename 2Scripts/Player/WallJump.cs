@@ -76,6 +76,7 @@ public class WallJump : MonoBehaviour
         }
     }
 
+    // TODO: Use Inheritance? Also on PlayerHorizontalMove and PlayerDash
     private void OnHorizontal(InputValue inputValue)
     {
         moveDir = inputValue.Get<float>();
@@ -93,6 +94,7 @@ public class WallJump : MonoBehaviour
         }
     }
 
+    // TODO: Use Inheritance? Also on PlayerDash. Inconsistent Naming
     private async void WallJumpCD()
     {
         canWallJump = false;

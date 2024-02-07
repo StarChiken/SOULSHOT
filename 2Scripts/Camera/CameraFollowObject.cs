@@ -13,7 +13,7 @@ public class CameraFollowObject : MonoBehaviour
     private Transform playerTransform;
 
     private string currentControlScheme = "";
-
+    private Camera mainCamera = Camera.main; // TODO: Camera.main is a bad practice, use reference
     private void Start()
     {
         playerTransform = transform.parent;
@@ -23,10 +23,14 @@ public class CameraFollowObject : MonoBehaviour
     {
         if (currentControlScheme == "Keyboard + Mouse")
         {
-            mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-            Vector3 positionDifference = (Vector3)mousePosition - playerTransform.position;
+            // TODO: Camera.main is a bad practice, use reference
+            mousePosition = mainCamera.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            
+            Vector3 position = playerTransform.position;
+            
+            Vector3 positionDifference = (Vector3)mousePosition - position;
             Vector3 clampedPos = Vector3.ClampMagnitude(positionDifference, maxDistanceFromPlayer);
-            transform.position = clampedPos + playerTransform.position;
+            transform.position = clampedPos + position;
         }
         else if (currentControlScheme == "Gamepad")
         {
@@ -36,6 +40,7 @@ public class CameraFollowObject : MonoBehaviour
         }
     }
 
+    // TODO: Unused Method???
     private void OnControlsChanged(PlayerInput playerInput)
     {
         currentControlScheme = playerInput.currentControlScheme;

@@ -26,13 +26,14 @@ public class PlayerDeath : MonoBehaviour
         StartCoroutine(SetIsHoldingFrameBuffer());
     }
 
-
+    // TODO: Should be async? Not refactored yet or better optimized as Coroutine?
     IEnumerator SetIsHoldingFrameBuffer()
     {
         yield return new WaitForEndOfFrame();
         Player.Instance.SetIsHolding(true);
         Player.Instance.SetPlayerObject(gameObject);
-        Player.Instance.SetPlayerFireTracker(GameObject.Find("Fire Tracker").transform);
+        // Find During Coroutine is bad, inviting performance issues
+        Player.Instance.SetPlayerFireTracker(GameObject.Find("Fire Tracker").transform); 
     }
 
     private void OnCollisionEnter2D(Collision2D col)

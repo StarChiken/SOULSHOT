@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerCrouch : MonoBehaviour
 {
+
     public float crouchTime;
     public float uncrouchTime;
 

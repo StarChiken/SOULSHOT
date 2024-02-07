@@ -24,7 +24,8 @@ public class Target : MonoBehaviour
     private void DestroyTarget()
     {
         for (int i = 0; i < shatteredPieces.Length; i++)
-        {
+        {    
+            // TODO: Instantiate is a bad practice, use Factory design pattern and Pooling
             Projectile projectileInstanceScript = Instantiate(shatteredPieces[i].shatteredPiece, transform.position, Quaternion.identity).GetComponent<Projectile>();
 
             Vector2 velVector = new Vector2(Mathf.Cos(shatteredPieces[i].shatteredLaunchRotation * Mathf.Deg2Rad), Mathf.Sin(shatteredPieces[i].shatteredLaunchRotation * Mathf.Deg2Rad));

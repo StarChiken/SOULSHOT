@@ -180,6 +180,7 @@ public class PlayerHorizontalMovement : MonoBehaviour
         return 0;
     }
 
+    // TODO: Use Inheritance? Also on WallJump and PlayerDash
     private void OnHorizontal(InputValue inputValue)
     {
         moveDir = inputValue.Get<float>();
@@ -191,6 +192,7 @@ public class PlayerHorizontalMovement : MonoBehaviour
     }
 }
 
+// TODO: Use Inheritance
 [Serializable]
 public class Demon
 {

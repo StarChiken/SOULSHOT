@@ -50,6 +50,7 @@ public class Checkpoint : MonoBehaviour
         return transform.position;
     }
 
+    // TODO: Unused Method???
     public bool GetHasBeenActivated()
     {
         return hasBeenActivated;

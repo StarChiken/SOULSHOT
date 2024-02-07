@@ -16,6 +16,7 @@ public class ThrowableInHand : MonoBehaviour
         Player.onFireTriggered += OnFireTriggered;
     }
 
+    // TODO: Can be made private. Later use???
     public void ThrowObjectInHand(Vector2 rotationVector)
     {
         spriteRenderer.sprite = emptySprite;
@@ -26,6 +27,7 @@ public class ThrowableInHand : MonoBehaviour
         Player.Instance.SetIsHolding(false);
     }
 
+    // TODO: Can be made private. Later use???
     public void OnThrowableHoldChange(bool _isHolding,GameObject _throwableObjectPrefab, Sprite _inHandSprite)
     {
         if (_isHolding)
@@ -44,6 +46,7 @@ public class ThrowableInHand : MonoBehaviour
         spriteRenderer.sprite = _inHandSprite;
     }
 
+    // TODO: Can be made private. Later use???
     public void RemoveObjectFromHand()
     {
         spriteRenderer.sprite = emptySprite;

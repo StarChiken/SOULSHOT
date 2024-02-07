@@ -1,13 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Turret : MonoBehaviour
 {
     [Header("Prefab Assignment")]
     public GameObject pistolPickUpPrefab;
     public GameObject explosionPrefab;
-
+    
+    private Transform turretTransform;
+    
     private LineRenderer laserLine;
     private Animator animator;
 
@@ -16,6 +19,8 @@ public class Turret : MonoBehaviour
 
     private void Start()
     {
+        turretTransform = transform;
+        
         aimScript = GetComponent<EnemyAim>();
         aggroScript = GetComponent<EnemyAggro>();
 
@@ -44,9 +49,14 @@ public class Turret : MonoBehaviour
 
     private void DestroyTurret()
     {
-        transform.parent.GetComponent<SpriteRenderer>().color = Color.gray;
-        Instantiate(pistolPickUpPrefab, transform.position, Quaternion.identity);
-        Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+        turretTransform.parent.GetComponent<SpriteRenderer>().color = Color.gray;
+        
+        Vector3 turretTransformPosition = turretTransform.position;
+        
+        // TODO: Instantiate is a bad practice, use Factory design pattern and Pooling
+        Instantiate(pistolPickUpPrefab, turretTransformPosition, Quaternion.identity);
+        Instantiate(explosionPrefab, turretTransformPosition, Quaternion.identity);
+        
         Destroy(gameObject);
     }
 

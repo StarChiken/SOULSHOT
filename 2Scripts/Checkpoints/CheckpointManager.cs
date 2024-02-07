@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// TODO: Can be made into non-MonoBehaviour
 public class CheckpointManager : MonoBehaviour
 {
     public Transform player;
